@@ -45,7 +45,7 @@ sudo dnf install git python310 python3-pip
 
 Execute o seguinte comando para instalar todas as dependências necessárias:
 
-pip install sacremoses datasets deep-translator moviepy imageio imageio-ffmpeg huggingface-hub transformers torch datasets tqdm git+https://github.com/openai/whisper.git
+pip install sacremoses datasets deep-translator moviepy imageio imageio-ffmpeg huggingface-hub transformers SentencePiece torch datasets tqdm git+https://github.com/openai/whisper.git
 
 ## 🎬 Como Usar
 
