@@ -8,7 +8,6 @@ Este é um script simples que transforma seus arquivos de áudio em vídeos com 
 2. [Instalação](#instalação)
 3. [Como Usar](#como-usar)
 4. [Solução de Problemas](#solução-de-problemas)
-5. [Contribuição](#contribuição)
 
 ## 🛠 Pré-requisitos
 
@@ -65,4 +64,4 @@ Se encontrar algum problema:
 2. Certifique-se de que os caminhos para o áudio e a imagem estão corretos
 3. Verifique se o FFmpeg está instalado e acessível pelo terminal
 
-- florencco
+### Por florencco 🎼
