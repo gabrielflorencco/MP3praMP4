@@ -14,12 +14,10 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 translator = pipeline("translation", model="Helsinki-NLP/opus-mt-tc-big-en-pt", device=device)
 
 def translate_batch(batch):
-    """Traduz um lote de textos."""
     translations = translator(batch['text'], max_length=40)
     return {'translated_text': [translation['translation_text'] for translation in translations]}
 
 def translate_texts(texts):
-    """Cria um conjunto de dados e traduz os textos em paralelo."""
     dataset = Dataset.from_dict({'text': texts})
     translated_dataset = dataset.map(translate_batch, batched=True, batch_size=8)
     return translated_dataset['translated_text']
@@ -28,7 +26,6 @@ def transcribe_audio_to_srt(audio_file, traduzir=False):
     model = whisper.load_model("base", device=device)
     result = model.transcribe(audio_file, language='en')
 
-    # Obtém o diretório do script e cria o caminho de saída
     script_dir = os.path.dirname(os.path.abspath(__file__))
     output_dir = os.path.join(script_dir, "outputs", os.path.splitext(os.path.basename(audio_file))[0].replace(' ', '-'))
     os.makedirs(output_dir, exist_ok=True)
@@ -38,7 +35,6 @@ def transcribe_audio_to_srt(audio_file, traduzir=False):
     texts_to_save = [segment['text'].strip() for segment in result['segments']] if traduzir else []
 
     if traduzir and texts_to_save:
-        # Traduzindo todos os textos em paralelo usando datasets
         translated_texts = translate_texts(texts_to_save)
 
     with open(srt_file_path, 'w', encoding='utf-8') as f:
@@ -64,11 +60,18 @@ def generate_video_with_subtitles(audio_path, srt_path, image_path, output_video
     video_temp = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
     video_temp.close()
 
-    ffmpeg_cmd_temp = (
-        f"ffmpeg -y -loop 1 -i \"{image_path}\" -i \"{audio_path}\" "
-        f"-vf \"scale=894:880\" -c:v h264_nvenc -preset fast -b:v 5M "
-        f"-c:a aac -b:a 192k -shortest \"{video_temp.name}\""
-    )
+    if torch.cuda.is_available():
+        ffmpeg_cmd_temp = (
+            f"ffmpeg -y -loop 1 -i \"{image_path}\" -i \"{audio_path}\" "
+            f"-vf \"scale=894:880\" -c:v h264_nvenc -preset fast -b:v 5M "
+            f"-c:a aac -b:a 192k -shortest \"{video_temp.name}\""
+        )
+    else:
+        ffmpeg_cmd_temp = (
+            f"ffmpeg -y -loop 1 -i \"{image_path}\" -i \"{audio_path}\" "
+            f"-vf \"scale=894:880\" -c:v libx264 -preset fast -b:v 5M "
+            f"-c:a aac -b:a 192k -shortest \"{video_temp.name}\""
+        )
     logging.info(f"Comando FFmpeg para vídeo temporário: {ffmpeg_cmd_temp}")
 
     os.system(ffmpeg_cmd_temp)
