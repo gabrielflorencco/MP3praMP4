@@ -26,6 +26,8 @@ Siga estes passos para configurar o ambiente:
 FFmpeg é essencial para manipulação de vídeos. Para instalar, execute no terminal:
 
 sudo dnf install ffmpeg
+ou
+choco install ffmpeg
 
 > 📝 Nota: Para outras opções de download, visite:
 > - [FFmpeg - Download](https://ffmpeg.org/download.html)
