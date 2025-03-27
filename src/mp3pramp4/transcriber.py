@@ -3,8 +3,8 @@ import logging
 import torch
 import whisper
 
-from src.utils import create_output_folder, format_time
-from src.translator import translate_texts
+from mp3pramp4.utils import create_output_folder, format_time
+from mp3pramp4.translator import translate_texts
 
 def transcribe_audio_to_srt(audio_file, traduzir=False):
     """
