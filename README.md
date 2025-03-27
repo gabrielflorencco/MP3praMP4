@@ -15,8 +15,9 @@ Antes de começar, certifique-se de ter instalado:
 
 - Python 3.10 ou superior
 - Git
+- FFmpeg
 
-> 📝 O FFmpeg será instalado automaticamente pelo `setup.py` durante a instalação do projeto.
+> 📝 O FFmpeg deverá instalado manualmente. As demais dependências serão obtidas automaticamente pelo `setup.py` durante a instalação do projeto
 
 ## 🚀 Instalação
 
@@ -31,13 +32,18 @@ cd MP3praMP4
 
 ### 2. Instale o projeto
 
-Execute o seguinte comando para instalar todas as dependências e o FFmpeg automaticamente:
+I. Instale o [ffmpeg](https://ffmpeg.org/) adequado ao seu sistema.
 
+II. Execute o seguinte comando para instalar todas as dependências:
+
+```sh
+pip install -r requirements.txt
+```
+
+III. E depois execute o setup para instalá-lo em sua máquina:
 ```sh
 pip install .
 ```
-
-Isso instalará todas as dependências listadas no `requirements.txt` e também fará o download do FFmpeg conforme o sistema operacional.
 
 ## 🎬 Como Usar
 
