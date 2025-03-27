@@ -25,7 +25,7 @@ Siga estes passos para configurar o ambiente:
 ### 1. Clone o repositório
 
 ```sh
-git clone https://github.com/seu-usuario/MP3praMP4.git
+git clone https://github.com/gabrielflorencco/MP3praMP4.git
 cd MP3praMP4
 ```
 
