@@ -1,0 +1,8 @@
+whisper
+torch
+transformers
+datasets
+tqdm
+sentencepiece
+sacremoses
+git+https://github.com/openai/whisper.git
